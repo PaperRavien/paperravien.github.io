@@ -1,0 +1,1300 @@
+<!-- DECO3100 INFOVIS ASSIGNMENT 3		dlee4882 | phwa3856 | jhwa8540-->
+
+<!DOCTYPE html>
+<html lang="en"> 
+	<head>
+		<meta charset="utf-8">
+		<title>DECO3100_DPRK</title>
+		<script src="https://d3js.org/d3.v5.min.js"></script>
+		<link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
+		
+		<style>
+		body {
+			background-image: url("Mainboard.png");
+			height: 100%;
+			background-position: top;
+			background-repeat: no-repeat;
+			background-size: cover;
+  			font-family: 'Open Sans';
+  			color: lightgray;
+  			margin: auto;
+  			padding-top: 50px;
+  			position: relative;
+  			width: 1280px;
+			}
+
+		 #tooltip {
+			position: absolute;
+		    width: 215px;
+		    height: 50px;
+		    padding: 10px;
+		    background-color: white;
+		    opacity: 0.8;
+		    -webkit-border-radius: 10px;
+		    -moz-border-radius: 10px;
+		    border-radius: 10px;
+		    -webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+		    -moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+		    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+		    pointer-events: none;
+		    color:black;
+		}
+
+		 #tooltip2 {
+			position: absolute;
+		    width: 215px;
+		    height: 50px;
+		    padding: 10px;
+		    background-color: white;
+		    opacity: 0.8;
+		    -webkit-border-radius: 10px;
+		    -moz-border-radius: 10px;
+		    border-radius: 10px;
+		    -webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+		    -moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+		    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+		    pointer-events: none;
+		    color:black;
+		}
+
+		 #tooltip3 {
+			position: absolute;
+		    width: 215px;
+		    height: 50px;
+		    padding: 10px;
+		    background-color: white;
+		    opacity: 0.8;
+		    -webkit-border-radius: 10px;
+		    -moz-border-radius: 10px;
+		    border-radius: 10px;
+		    -webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+		    -moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+		    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+		    pointer-events: none;
+		    color:black;
+		}
+
+		 #tooltip4 {
+			position: absolute;		 	
+		    width: 225px;
+		    height: 50px;
+		    padding: 10px;
+		    background-color: white;
+		    opacity: 0.8;
+		    -webkit-border-radius: 10px;
+		    -moz-border-radius: 10px;
+		    border-radius: 10px;
+		    -webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+		    -moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+		    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+		    pointer-events: none;
+		    color:black;
+		}
+
+		#tooltip.hidden {
+		    display: none;
+		}
+
+		#tooltip2.hidden {
+		    display: none;
+		}
+
+		#tooltip3.hidden {
+		    display: none;
+		}
+
+		#tooltip4.hidden {
+		    display: none;
+		}
+
+		#tooltip p {
+		    margin: 0;
+		    font-family: sans-serif;
+		    font-size: 16px;
+		    line-height: 20px;
+		}
+		#tooltip2 p {
+		    margin: 0;
+		    font-family: sans-serif;
+		    font-size: 16px;
+		    line-height: 20px;
+		}
+		#tooltip3 p {
+		    margin: 0;
+		    font-family: sans-serif;
+		    font-size: 16px;
+		    line-height: 20px;
+		}
+		#tooltip4 p {
+		    margin: 0;
+		    font-family: sans-serif;
+		    font-size: 16px;
+		    line-height: 20px;
+		}
+
+/*year*/
+		#sort5 {
+			position: fixed;
+			margin-top: 600px;
+			margin-left: 960px;
+			width: 250px;
+			background-color: rgba(255, 255, 255, 0.2);
+			cursor: pointer;
+			padding: 3px;
+			color: #fff;
+		}
+
+/*science and conserve*/
+		#sort3 {
+			position: fixed;
+			margin-top:630px;
+			margin-left: 960px;
+			width: 250px;
+			background-color: rgba(255, 255, 255, 0.2);
+			cursor: pointer;
+			padding: 3px;
+			color: #fff;
+		}
+
+/*disaster recon*/
+		#sort2 {
+			position:fixed;
+			margin-top: 660px;
+			margin-left: 960px;
+			width: 250px;
+			background-color: rgba(255, 255, 255, 0.2);
+			cursor: pointer;
+			padding: 3px;
+			color: #fff;
+		}		
+
+/*disaster prevention*/
+		#sort {
+			position:fixed;
+			margin-top:690px;
+			margin-left: 960px;
+			width: 250px;
+			cursor: pointer;
+			padding: 3px;
+			color: #fff;
+			background-color: rgba(255, 255, 255, 0.2);
+		}
+
+
+/*casualties*/
+		#sort4 {
+			position: fixed;
+			margin-top:720px;
+			margin-left: 960px;
+			width: 250px;
+			background-color: rgba(255, 255, 255, 0.2);
+			cursor: pointer;
+			padding: 3px;
+			color: #fff;
+		}
+
+/*group and ungroup*/		
+		#sort_sci {
+			position:fixed;
+			margin-top:750px;
+			margin-left: 960px;
+			width: 250px;
+			background-color: rgba(255, 255, 255, 0.2);
+			cursor: pointer;
+			padding: 3px;
+			color: #fff;
+		}	
+
+		.instructions em {
+			color: orange;
+			font-weight: bold;
+		}
+
+		#chart {
+			position: relative;
+			height: 2000px;
+		}
+
+		.sort_key {
+			position:fixed;
+			width: 50px;
+			color: red;
+			cursor: pointer;
+			padding: 3px;
+			color: #333;
+		}
+
+		.noFill {
+			fill: none;
+			stroke-width: 5px;
+			stroke: rgb(109,196,151);
+			opacity: 0.8;
+		}
+
+		.infotext {
+			position:fixed;
+			margin-top: 120px;
+			margin-left: 860px;
+			margin-right: 0px;
+			padding: 100px;
+			text-align: left;
+			/*font-weight: bold;*/
+			color: white;
+			float: right;
+			white-space:nowrap;
+		}
+
+		.textNav {
+			margin-left: 5px;
+			margin-right: 5px;
+			/*float: left;*/
+		}	
+
+/* The two step to centering anything, elementC and divWrap */
+		.elementC {
+			display: inline-block;
+		}
+
+		.divWrap {
+			position:fixed;
+			margin-top: 35px;
+			margin-left:960px;
+			margin-right: 0px;
+			right-padding:100px;
+			text-align: left;
+			float:left;
+			color: white;
+			white-space:nowrap;
+		}
+/*JPY Billion*/
+		#left {
+			margin-top: 400px;
+			margin-left:-110px;
+			margin-right: -30px;
+			padding-left:0px;
+			text-align: center;
+			float:left;
+			color: white;
+		}
+/*Casualties*/
+		#left2 {
+			position: fixed;
+			margin-top: 1080px;
+			margin-left:-60px;
+			margin-right:0px;
+			padding-left:0px;
+			text-align: left;
+			float:left;
+			color: white;
+		}
+/*Year*/
+		#left3 {
+			margin-top: 820px;
+			margin-left:-80px;
+			margin-right: 0px;
+			right-padding:0px;
+			text-align: left;
+			float:left;
+			color: white;
+		}
+/*Rotate 90degrees*/
+		.rotate {
+			transform: rotate(-90deg);
+		}
+
+
+		.divRight {
+			float: right;
+			position: absolute;
+		}
+
+		.pullRight {
+			float: right;
+		}
+
+
+		#navWrap {
+			height: 60px;
+			width: 300px;
+		}
+
+		.glow {
+		    border: 2px solid #dadada;
+		    border-radius: 7px;
+		}
+
+		.glow:focus {
+	    	outline: none;
+    		border-color: #9ecaed;
+    		box-shadow: 0 0 10px #9ecaed;
+		}
+
+      code {
+	      font-family: monospace;
+	      font-size: 17px;
+	      color: #008;
+    	}
+		</style>
+
+
+     </head>
+     <body style="background-color: black;">
+     	</div>
+<!-- leftside label (top half) -->
+     	<div>
+			<div id ="left">
+				<div class="rotate">
+				<div>
+				Disaster Management Budget<br>
+				(¥ Million JPY) 
+				</div>
+			</div>
+			</div>
+		</div>
+<!-- x-axis (years) -->
+		<div>
+			<div id ="left3">
+				<div>
+				Years
+				</div>
+			</div>
+			</div>
+		</div>
+<!-- leftside label (bottom half) -->
+		<div>
+			<div id ="left2">
+				<div class="rotate">
+				<div>
+				Casualties
+				</div>
+			</div>
+			</div>
+		</div>
+
+
+<!-- Title -->
+     		<div class="divWrap">
+     			<h1 style="font-size:35px">
+     				How Japan’s natural disaster <br>
+     				casualties affects disaster <br>
+     				management spending.</h1>
+     		</div>
+<!-- paragraph -->
+     		<div class="infotext">
+	     		<p>
+	     			In both 1995 and 2011 fierce disasters struck Japan which left extreme <br>
+	     			number of casualties and financial impact. <br>
+	     			However Japan's distribution of the Disaster Management Budget in <br>
+	     			response to these outcomes show that the country is quick to get back <br>
+	     			on its feet.
+	     		</p>
+     			<p>
+     				The 2011 disaster’s casualties resulted in a quick response from <br>
+     				the Government. The rapid switch from conservation costs to disaster <br>
+     				reconstruction costs resulted in constantly decreasing numbers in both <br>
+     				the budget and number of casualties.<br>
+     				<br>
+     				<br>
+     				<br>
+     				Source: Cabinet Office Japan (2018) White Paper on Disaster Risk Management 2018.
+     			</p>
+     		</div>
+
+<!-- (interactive) Sorting -->
+	     	<div id="chart">
+	     		<div>
+	     			<div>
+	     				<div>
+<!-- Sort by Disaster Prevention (lowest ~ greatest) -->
+	     					<div id="sort5">
+	     						<svg width="10" height="10"></svg>
+		     					Sort by Year
+	     					</div>
+	     				</div>
+<!-- Sort by Disaster Prevention (lowest ~ greatest) -->
+		     			<div id="sort">
+		     					<svg width="10" height="10"><rect width="20" height="20" style="fill:rgb(229,101,101)";/></svg>
+		     					Sort Disaster Prevention	     				
+		     			</div>
+
+<!-- Sort by Disaster Reconstruction (lowest ~ greatest) -->  		
+		     			<div id="sort2">
+		     				<div>
+		     					<svg width="10" height="10"><rect width="20" height="20" style="fill:rgb(204,159,159)";/></svg>
+		     					Sort Disaster Reconstruction
+		     				</div>
+		     			</div>
+<!-- Sort by Science and Conservation (lowest ~ greatest) --> 
+		     			<div id="sort3">
+		     				<div>
+		     					<svg width="10" height="10"><rect width="20" height="20" style="fill:rgb(185,210,205)";/></svg>
+		     					Sort Science and Conservation
+		     				</div>
+		     			</div>
+<!-- Sort by Casualties (lowest ~ greatest) --> 
+		     			<div id="sort4">
+		     				<div>
+		     					<svg width="10" height="10"><rect width="20" height="20" style="fill:rgb(173,64,69)";/></svg>
+		     					Sort Casualties
+		     				</div>
+		     			</div>
+<!-- Group and Ungroup --> 		     			
+		     			<div id="sort_sci">
+		     				<div>
+		     					<svg width="10" height="10"></svg>
+		     					Group / Ungroup
+		     				</div>
+		     		</div>
+		    	</div>
+<!-- Hover Over show this:--> 
+				 <div id="tooltip" class="hidden">
+				   <p><strong>Disaster Prevention</strong></p>
+				   <p><span id="dis_prevention"></span></p>
+				 </div>
+
+				 <div id="tooltip2" class="hidden">
+				   <p><strong>Disaster Reconstruction</strong></p>
+				   <p><span id="dis_reconstruction"></span></p>
+				 </div>
+
+				 <div id="tooltip3" class="hidden">
+				   <p><strong>Science and Conservation</strong></p>
+				   <p><span id="science_conservation"></span></p>
+				 </div>
+
+				 <div id="tooltip4" class="hidden">
+				   <p><strong>Deaths and Missing Persons</strong></p>
+				   <p><span id="casualties"></span></p>
+				 </div>
+
+			</div>
+		</div>
+
+		<script>
+// Connect to the data
+	d3.csv("a3_data.csv",  	
+			 function(d){ 							  
+// Initialize data
+							return{
+								budget_year: d.budget_year,
+								dis_prevention: + d.dis_prevention,
+								dis_reconstruction: + d.dis_reconstruction,
+								science_conservation: +d.science_conservation,
+								casualties: +d.casualties,
+								fac_damage: +d.fac_damage,
+								d_storm: +d.d_storm,
+								d_tsunami: +d.d_tsunami,
+								d_volcano: +d.d_volcano,
+								d_snow: +d.d_snow,
+								d_other: +d.d_other
+								
+							}
+				})
+	.then(function(dataset){ 
+		
+//Create variables
+
+		    var w = 720;
+		    var h =6500;
+		    var h1 = 900; 
+		    var padding = 70;
+
+//Create scales
+
+		    var xScale = d3.scaleBand() 
+//Set domain to countries
+		                    .domain(dataset.map(
+		                    		function(d) {
+		                    			return d.budget_year;
+		                    		}
+
+		                    	))
+		                    .rangeRound([padding,w+padding]) 
+		                    .paddingInner(0.05); 
+
+		    var yScale = d3.scaleLinear()
+//Set domain to value
+		                    .domain([0,8000000])
+		                    .range([h1-padding, padding]);  
+
+		    var yScaleMinus = d3.scaleLinear()
+		    				.domain([0, 24000])
+//LENGTH OF THE AXIS
+		    				.range([h1 - padding, h1 - padding + d3.max(dataset, function(d){
+		    					return d.casualties/4;
+		    				})]);
+
+
+//GROUP AND UNGROUP
+		var sortDir_sci = false
+
+
+
+//Define axes.
+
+		    var xAxis = d3.axisBottom(xScale);
+		    var yAxis = d3.axisLeft(yScale);
+		    yAxis
+		    	.ticks(17)
+		    	.tickSize(5);
+
+		    var yAxisMinus = d3.axisLeft(yScaleMinus);
+		    yAxisMinus
+		    	.ticks(49)
+		    	.tickSize(5);
+
+
+
+
+// DEFINING LINE
+			var line = d3.line()
+				.x(function(d) {return xScale(d.budget_year) + 15;})
+				.y(function(d) {return yScale(d.fac_damage);});
+
+
+		// 5. Create SVG and generate axes.
+
+//Create SVG	
+		    var svg = d3.select("#chart")
+			    .append("svg")
+			    .attr("width", w+200)
+			    .attr("height", h);
+
+//Create Axes
+		    svg.append("g")
+			    .attr("class", "leftAxis")
+			    .attr("transform", "translate(" + padding + ",0)")
+			    .call(yAxis);
+
+			svg.append("g")
+				.attr("class", "leftAxis")
+				.attr("transform","translate(" + padding +"," + "0)")
+				.call(yAxisMinus);
+
+//Create bars
+	//Disaster Prevention
+		    var bars_3 = svg.selectAll(".bar_3")
+					    .data(dataset)
+						.enter()
+					    .append("rect")
+					    	.attr("class","bar_3")
+						    .attr("x", function(d, i){
+						      return xScale(d.budget_year);
+						    })
+						    .attr("y", function(d,i) {
+						      return yScale(d.dis_prevention);
+						    })
+						    .attr("width", xScale.bandwidth())
+						    .attr("height", function(d,i){
+						      return h1-yScale(d.dis_prevention) - padding;
+						    })
+						    .attr("fill", function(d,i){
+						        return "rgb(229,101,101)";
+						    });
+	//Disaster Reconstruction
+		    var bars_2 = svg.selectAll(".bar_2")
+					    .data(dataset)
+						.enter()
+					    .append("rect")
+					    	.attr("class","bar_2")
+						    .attr("x", function(d, i){
+						      return xScale(d.budget_year);
+						    })
+						    .attr("y", function(d,i) {
+						      return yScale(d.dis_reconstruction) - (h1 - yScale(d.dis_prevention))+padding;
+						    })
+						    .attr("width", xScale.bandwidth())
+						    .attr("height", function(d,i){
+						      return h1-yScale(d.dis_reconstruction) - padding;
+						    })
+						    .attr("fill", function(d,i){
+						        return "rgb(204,159,159)";
+						    });
+	//Science and conservation
+		    var bars = svg.selectAll(".bar")
+					    .data(dataset)
+						.enter()
+					    .append("rect")
+					    	.attr("class","bar")
+						    .attr("x", function(d, i){
+						      return xScale(d.budget_year);
+						    })
+						    .attr("y", function(d,i) {
+						      return yScale(d.science_conservation) - (h1-yScale(d.dis_reconstruction)) - (h1-yScale(d.dis_prevention))+(padding*2);
+						    })
+						    .attr("width", xScale.bandwidth())
+						    .attr("height", function(d,i){
+						      return h1-yScale(d.science_conservation) - padding;
+						    })
+						    .attr("fill", function(d,i){
+						        return "rgb(185,210,205)";
+						    });
+	//Casualties
+		    var bars_4 = svg.selectAll(".bar_4")
+					    .data(dataset)
+						.enter()
+					    .append("rect")
+					    	.attr("class","bar_4")
+						    .attr("x", function(d, i){
+						      return xScale(d.budget_year);
+						    })
+						    .attr("y", 830)
+						    /*
+						    .attr("y", function(d,i) {
+						      return yScale(d.casualties);
+						      
+						    })*/
+						    .attr("width", xScale.bandwidth())
+						    .attr("height", function(d,i){
+						      return -(h1-yScaleMinus(d.casualties) - padding);
+						    })
+						    .attr("fill", function(d,i){
+						        return "rgb(173,64,69)";
+						    });
+
+			svg.append("g")
+				.attr("class", "bottomAxis")
+				.attr("transform", "translate(0," + (h1 - padding) + ")")
+				.call(xAxis);
+
+//(interactive) GROUP AND UNGROUP 
+		var sortDir = true
+				
+					d3.select("#sort").on("click",function(){
+						//on command of click:
+						console.log("Click!!!!")
+
+						sortDir = !sortDir;
+
+						if(sortDir) {
+							dataset.sort(function(a,b){
+								return d3.descending(a.dis_prevention, b.dis_prevention)
+							}) 
+						}else {
+							dataset.sort(function(a,b){
+								return d3.ascending(a.dis_prevention, b.dis_prevention)
+						})
+					}
+		
+					xScale.domain(dataset.map(function(d){
+							return d.budget_year;
+						}
+					))
+
+					svg.select(".bottomAxis")
+						.transition("sort").duration(1000)
+							//.ease(d3.easeBounceOut)
+						.call(xAxis)
+	
+			if(!sortDir_sci){
+						bars
+							.transition("sort").duration(1000).ease(d3.easeExpInOut)
+							.attr("x", function(d, i){
+								return xScale(d.budget_year);
+								})
+						bars_2
+							.transition("sort").duration(1000).ease(d3.easeExpInOut)
+							.attr("x", function(d, i){
+								return xScale(d.budget_year);
+								})
+						bars_3
+							.transition("sort").duration(1000).ease(d3.easeExpInOut)
+							.attr("x", function(d, i){
+								return xScale(d.budget_year);
+								})
+						bars_4
+							.transition("sort").duration(1000).ease(d3.easeExpInOut)
+							.attr("x", function(d, i){
+								return xScale(d.budget_year);
+								})
+
+						svg.selectAll(".label")
+							.transition("sort")
+							.duration(1000)
+							.ease(d3.easeExpInOut)
+							.attr("x", function(d,i){
+								return xScale(d.budget_year) + xScale.bandwidth()/2;
+							})
+						} else {
+							bars
+								.transition("sort").duration(1000).ease(d3.easeExpInOut)
+								.attr("x", function(d, i){
+									return xScale(d.budget_year) + (2/3*(xScale.bandwidth()));
+									})
+							bars_2
+								.transition("sort").duration(1000).ease(d3.easeExpInOut)
+								.attr("x", function(d, i){
+									return xScale(d.budget_year) + (1/3*(xScale.bandwidth()));
+									})
+							bars_3
+								.transition("sort").duration(1000).ease(d3.easeExpInOut)
+								.attr("x", function(d, i){
+									return xScale(d.budget_year);
+									})
+							bars_4
+								.transition("sort").duration(1000).ease(d3.easeExpInOut)
+								.attr("x", function(d, i){
+									return xScale(d.budget_year);
+								})
+
+						svg.selectAll(".label")
+							.transition("sort")
+							.duration(1000)
+							.ease(d3.easeExpInOut)
+							.attr("x", function(d,i){
+								return xScale(d.budget_year) + xScale.bandwidth()/2;
+							})
+						}
+					});
+
+
+		var sortDir2 = true
+			
+					d3.select("#sort2").on("click",function(){
+						//on command of click:
+						console.log("Click!")
+
+						sortDir2 = !sortDir2;
+
+						if(sortDir2) {
+							dataset.sort(function(a,b){
+								return d3.descending(a.dis_reconstruction, b.dis_reconstruction)
+							}) 
+						}else {
+							dataset.sort(function(a,b){
+								return d3.ascending(a.dis_reconstruction, b.dis_reconstruction)
+						})
+					}
+				
+					xScale.domain(dataset.map(function(d){
+							return d.budget_year;
+						}
+					))
+
+					svg.select(".bottomAxis")
+						.transition("sort2").duration(1000)
+							//.ease(d3.easeBounceOut)
+						.call(xAxis)
+	
+			if(!sortDir_sci){
+						bars
+							.transition("sort2").duration(1000).ease(d3.easeExpInOut)
+							.attr("x", function(d, i){
+								return xScale(d.budget_year);
+								})
+						bars_2
+							.transition("sort2").duration(1000).ease(d3.easeExpInOut)
+							.attr("x", function(d, i){
+								return xScale(d.budget_year);
+								})
+						bars_3
+							.transition("sort2").duration(1000).ease(d3.easeExpInOut)
+							.attr("x", function(d, i){
+								return xScale(d.budget_year);
+								})
+						bars_4
+							.transition("sort2").duration(1000).ease(d3.easeExpInOut)
+							.attr("x", function(d, i){
+								return xScale(d.budget_year);
+								})
+
+						svg.selectAll(".label2")
+							.transition("sort2")
+							.duration(1000)
+							.ease(d3.easeExpInOut)
+							.attr("x", function(d,i){
+								return xScale(d.budget_year) + xScale.bandwidth()/2;
+							})
+						} else {
+							bars
+								.transition("sort2").duration(1000).ease(d3.easeExpInOut)
+								.attr("x", function(d, i){
+									return xScale(d.budget_year) + (2/3*(xScale.bandwidth()));
+									})
+							bars_2
+								.transition("sort2").duration(1000).ease(d3.easeExpInOut)
+								.attr("x", function(d, i){
+									return xScale(d.budget_year) + (1/3*(xScale.bandwidth()));
+									})
+							bars_3
+								.transition("sort2").duration(1000).ease(d3.easeExpInOut)
+								.attr("x", function(d, i){
+									return xScale(d.budget_year);
+									})
+							bars_4
+								.transition("sort2").duration(1000).ease(d3.easeExpInOut)
+								.attr("x", function(d, i){
+									return xScale(d.budget_year);
+								})
+
+					svg.selectAll(".label2")
+						.transition("sort2")
+						.duration(1000)
+						.ease(d3.easeExpInOut)
+						.attr("x", function(d,i){
+							return xScale(d.budget_year) + xScale.bandwidth()/2;
+						})
+					}
+					});
+
+
+		var sortDir3 = true
+				
+					d3.select("#sort3").on("click",function(){
+						//on command of click:
+						console.log("Click!")
+
+						sortDir3 = !sortDir3;
+
+						if(sortDir3) {
+							dataset.sort(function(a,b){
+								return d3.descending(a.science_conservation, b.science_conservation)
+							}) 
+						}else {
+							dataset.sort(function(a,b){
+								return d3.ascending(a.science_conservation, b.science_conservation)
+						})
+					}
+			
+					xScale.domain(dataset.map(function(d){
+							return d.budget_year;
+						}
+					))
+
+					svg.select(".bottomAxis")
+						.transition("sort3").duration(1000)
+							//.ease(d3.easeBounceOut)
+						.call(xAxis)
+		
+			if(!sortDir_sci){
+						bars
+							.transition("sort3").duration(1000).ease(d3.easeExpInOut)
+							.attr("x", function(d, i){
+								return xScale(d.budget_year);
+								})
+						bars_2
+							.transition("sort3").duration(1000).ease(d3.easeExpInOut)
+							.attr("x", function(d, i){
+								return xScale(d.budget_year);
+								})
+						bars_3
+							.transition("sort3").duration(1000).ease(d3.easeExpInOut)
+							.attr("x", function(d, i){
+								return xScale(d.budget_year);
+								})
+						bars_4
+							.transition("sort3").duration(1000).ease(d3.easeExpInOut)
+							.attr("x", function(d, i){
+								return xScale(d.budget_year);
+								})
+
+						svg.selectAll(".label3")
+							.transition("sort3")
+							.duration(1000)
+							.ease(d3.easeExpInOut)
+							.attr("x", function(d,i){
+								return xScale(d.budget_year) + xScale.bandwidth()/2;
+							})
+						} else {
+							bars
+								.transition("sort3").duration(1000).ease(d3.easeExpInOut)
+								.attr("x", function(d, i){
+									return xScale(d.budget_year) + (2/3*(xScale.bandwidth()));
+									})
+							bars_2
+								.transition("sort3").duration(1000).ease(d3.easeExpInOut)
+								.attr("x", function(d, i){
+									return xScale(d.budget_year) + (1/3*(xScale.bandwidth()));
+									})
+							bars_3
+								.transition("sort3").duration(1000).ease(d3.easeExpInOut)
+								.attr("x", function(d, i){
+									return xScale(d.budget_year);
+									})
+							bars_4
+								.transition("sort3").duration(1000).ease(d3.easeExpInOut)
+								.attr("x", function(d, i){
+									return xScale(d.budget_year);
+								})
+
+					svg.selectAll(".label3")
+						.transition("sort3")
+						.duration(1000)
+						.ease(d3.easeExpInOut)
+						.attr("x", function(d,i){
+							return xScale(d.budget_year) + xScale.bandwidth()/2;
+						})
+					}
+					});
+
+
+		var sortDir4 = true
+			
+					d3.select("#sort4").on("click",function(){
+						//on command of click:
+						console.log("Click!")
+
+						sortDir4 = !sortDir4;
+
+						if(sortDir4) {
+							dataset.sort(function(a,b){
+								return d3.ascending(a.casualties, b.casualties)
+							}) 
+						}else {
+							dataset.sort(function(a,b){
+								return d3.descending(a.casualties, b.casualties)
+						})
+					}
+				
+					xScale.domain(dataset.map(function(d){
+							return d.budget_year;
+						}
+					))
+
+					svg.select(".bottomAxis")
+						.transition("sort4").duration(1000)
+							//.ease(d3.easeBounceOut)
+						.call(xAxis)
+		
+			if(!sortDir_sci){
+						bars
+							.transition("sort4").duration(1000).ease(d3.easeExpInOut)
+							.attr("x", function(d, i){
+								return xScale(d.budget_year);
+								})
+						bars_2
+							.transition("sort4").duration(1000).ease(d3.easeExpInOut)
+							.attr("x", function(d, i){
+								return xScale(d.budget_year);
+								})
+						bars_3
+							.transition("sort4").duration(1000).ease(d3.easeExpInOut)
+							.attr("x", function(d, i){
+								return xScale(d.budget_year);
+								})
+						bars_4
+							.transition("sort4").duration(1000).ease(d3.easeExpInOut)
+							.attr("x", function(d, i){
+								return xScale(d.budget_year);
+								})
+
+						svg.selectAll(".label_cas")
+							.transition("sort4")
+							.duration(1000)
+							.ease(d3.easeExpInOut)
+							.attr("x", function(d,i){
+								return xScale(d.budget_year) + xScale.bandwidth()/2;
+							})
+						} else {
+							bars
+								.transition("sort").duration(1000).ease(d3.easeExpInOut)
+								.attr("x", function(d, i){
+									return xScale(d.budget_year) + (2/3*(xScale.bandwidth()));
+									})
+							bars_2
+								.transition("sort").duration(1000).ease(d3.easeExpInOut)
+								.attr("x", function(d, i){
+									return xScale(d.budget_year) + (1/3*(xScale.bandwidth()));
+									})
+							bars_3
+								.transition("sort").duration(1000).ease(d3.easeExpInOut)
+								.attr("x", function(d, i){
+									return xScale(d.budget_year);
+									})
+							bars_4
+								.transition("sort").duration(1000).ease(d3.easeExpInOut)
+								.attr("x", function(d, i){
+									return xScale(d.budget_year);
+								})
+
+					svg.selectAll(".label_cas")
+						.transition("sort4")
+						.duration(1000)
+						.ease(d3.easeExpInOut)
+						.attr("x", function(d,i){
+							return xScale(d.budget_year) + xScale.bandwidth()/2;
+						})
+					}
+					});
+//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+		var sortDir5 = true
+				
+
+					d3.select("#sort5").on("click",function(){
+						//on command of click:
+						console.log("Click!")
+
+						sortDir5 = !sortDir5;
+
+						if(sortDir5) {
+							dataset.sort(function(a,b){
+								return d3.ascending(a.budget_year, b.budget_year)
+							}) 
+						}else {
+							dataset.sort(function(a,b){
+								return d3.descending(a.budget_year, b.budget_year)
+						})
+					}
+					
+
+					xScale.domain(dataset.map(function(d){
+							return d.budget_year;
+						}
+					))
+
+					svg.select(".bottomAxis")
+						.transition("sort5").duration(1000)
+							//.ease(d3.easeBounceOut)
+						.call(xAxis)
+		
+
+			if(!sortDir_sci){
+						bars
+							.transition("sort5").duration(1000).ease(d3.easeExpInOut)
+							.attr("x", function(d, i){
+								return xScale(d.budget_year);
+								})
+						bars_2
+							.transition("sort5").duration(1000).ease(d3.easeExpInOut)
+							.attr("x", function(d, i){
+								return xScale(d.budget_year);
+								})
+						bars_3
+							.transition("sort5").duration(1000).ease(d3.easeExpInOut)
+							.attr("x", function(d, i){
+								return xScale(d.budget_year);
+								})
+						bars_4
+							.transition("sort5").duration(1000).ease(d3.easeExpInOut)
+							.attr("x", function(d, i){
+								return xScale(d.budget_year);
+								})
+
+						svg.selectAll(".label_main")
+							.transition("sort5")
+							.duration(1000)
+							.ease(d3.easeExpInOut)
+							.attr("x", function(d,i){
+								return xScale(d.budget_year) + xScale.bandwidth()/2;
+							})
+						} else {
+							bars
+								.transition("sort5").duration(1000).ease(d3.easeExpInOut)
+								.attr("x", function(d, i){
+									return xScale(d.budget_year) + (2/3*(xScale.bandwidth()));
+									})
+							bars_2
+								.transition("sort5").duration(1000).ease(d3.easeExpInOut)
+								.attr("x", function(d, i){
+									return xScale(d.budget_year) + (1/3*(xScale.bandwidth()));
+									})
+							bars_3
+								.transition("sort5").duration(1000).ease(d3.easeExpInOut)
+								.attr("x", function(d, i){
+									return xScale(d.budget_year);
+									})
+							bars_4
+								.transition("sort5").duration(1000).ease(d3.easeExpInOut)
+								.attr("x", function(d, i){
+									return xScale(d.budget_year);
+								})
+
+					svg.selectAll(".label_main")
+						.transition("sort5")
+						.duration(1000)
+						.ease(d3.easeExpInOut)
+						.attr("x", function(d,i){
+							return xScale(d.budget_year) + xScale.bandwidth()/2;
+						})
+					}
+					});
+
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+		var sortDir_sci = false
+			d3.select('#sort_sci').on("click",function(d){
+				sortDir_sci = !sortDir_sci;
+
+				if(sortDir_sci) {
+					svg.selectAll(".bar")
+						.transition().duration(800).ease(d3.easeExpInOut)
+						.attr("x", function(d,i){
+							return xScale(d.budget_year) + (2/3*(xScale.bandwidth()))
+						})
+						.attr("width", xScale.bandwidth()/3)
+						.attr("y", function(d,i){
+							return yScale(d.science_conservation)
+						})
+					svg.selectAll(".bar_2")
+						.transition().duration(800).ease(d3.easeExpInOut)
+						.attr("x", function(d,i){
+							return xScale(d.budget_year) + (1/3*(xScale.bandwidth()))
+						})
+						.attr("width", xScale.bandwidth()/3)
+						.attr("y", function(d,i){
+							return yScale(d.dis_reconstruction)
+						})
+					svg.selectAll(".bar_3")
+						.transition().duration(800).ease(d3.easeExpInOut)
+						.attr("x", function(d,i){
+							return xScale(d.budget_year)
+						})
+						.attr("width", xScale.bandwidth()/3)
+						.attr("y", function(d,i){
+							return yScale(d.dis_prevention)
+						})
+				} else {
+					svg.selectAll(".bar")
+						.transition().duration(800).ease(d3.easeExpInOut)
+						.attr("x", function(d,i){
+							return xScale(d.budget_year)
+						})
+						.attr("width", xScale.bandwidth())
+						.attr("y", function(d,i) {
+						    return yScale(d.science_conservation) - (h1-yScale(d.dis_reconstruction)) - (h1-yScale(d.dis_prevention))+(padding*2);
+						})
+					svg.selectAll(".bar_2")
+						.transition().duration(800).ease(d3.easeExpInOut)
+						.attr("x", function(d,i){
+							return xScale(d.budget_year)
+						})
+						.attr("width", xScale.bandwidth())
+						.attr("y", function(d,i) {
+						    return yScale(d.dis_reconstruction) - (h1 - yScale(d.dis_prevention))+padding;
+						})
+					svg.selectAll(".bar_3")
+						.transition().duration(800).ease(d3.easeExpInOut)
+						.attr("x", function(d,i){
+							return xScale(d.budget_year)
+						})
+						.attr("width", xScale.bandwidth())
+						.attr("y", function(d,i) {
+						    return yScale(d.dis_prevention);
+						})
+				}
+			})
+
+//(interactivity) Tooltip on HOVER + follow mouse.
+		svg.selectAll(".bar_4").on("mousemove", function(d){
+
+			//console.log("hover!")
+//
+			d3.select(this).attr("fill" , "rgb(193,84,89)")
+			var coordinates = [0,0];
+			coordinates = d3.mouse(this);
+			var xPosition = coordinates[0]
+			var yPosition = coordinates[1]
+//Casualties
+			d3.select("#tooltip4")
+				.style("left", xPosition+60 + "px")
+				.style("top", yPosition-80 + "px")
+
+				.select("#casualties") 
+					.text(d.casualties + " casualties (" + d.budget_year + ")" )
+
+			d3.select("#tooltip4").classed("hidden", false)
+		})
+		.on("mouseout",function(d){
+// Toggle (mouse hovers out)
+			d3.select(this)
+				.transition().duration(250)
+				.attr('fill', "rgb(173,64,69)")
+
+			d3.select("#tooltip4")
+				.classed("hidden", true)
+		})
+
+
+
+//Disaster Prevention	
+		svg.selectAll(".bar_3").on("mousemove", function(d){
+
+
+			d3.select(this).attr("fill" , "rgb(249,121,121)")
+			var coordinates = [0,0];
+			coordinates = d3.mouse(this);
+			var xPosition = coordinates[0]
+			var yPosition = coordinates[1]
+
+			d3.select("#tooltip")
+				.style("left", xPosition+60 + "px")
+				.style("top", yPosition-80 + "px")
+
+				.select("#dis_prevention") 
+					.text(d.dis_prevention + " million ¥ (" + d.budget_year + ")")
+
+			d3.select("#tooltip").classed("hidden", false)
+		})
+		.on("mouseout",function(d){
+
+			d3.select(this)
+				.transition().duration(250)
+				.attr('fill', "rgb(229,101,101)")
+
+			d3.select("#tooltip")
+				.classed("hidden", true)
+		})
+
+//Disaster Reconstruction
+		svg.selectAll(".bar_2").on("mousemove", function(d){
+
+			d3.select(this).attr("fill" , "rgb(224,179,179)")
+
+			var coordinates = [0,0];
+			coordinates = d3.mouse(this);
+			var xPosition = coordinates[0]
+			var yPosition = coordinates[1]
+
+			d3.select("#tooltip2")
+				.style("left", xPosition+60 + "px")
+				.style("top", yPosition-80 + "px")
+
+				.select("#dis_reconstruction")
+					.text(d.dis_reconstruction + " million ¥ (" + d.budget_year + ")")
+
+			d3.select("#tooltip2").classed("hidden", false)
+		})
+		.on("mouseout",function(d){
+
+			d3.select(this)
+				.transition().duration(250)
+				.attr('fill', "rgb(204,159,159)")
+
+			d3.select("#tooltip2")
+				.classed("hidden", true)
+		})
+
+//Science and Conservation
+		svg.selectAll(".bar").on("mousemove", function(d){
+
+			d3.select(this).attr("fill" , "rgb(205,230,225)")
+
+			var coordinates = [0,0];
+			coordinates = d3.mouse(this);
+			var xPosition = coordinates[0]
+			var yPosition = coordinates[1]
+
+			d3.select("#tooltip3")
+				.style("left", xPosition+60 + "px")
+				.style("top", yPosition-80 + "px")
+
+				.select("#science_conservation")
+					.text(d.science_conservation + " million ¥ (" + d.budget_year + ")")
+
+			d3.select("#tooltip3").classed("hidden", false)
+		})
+		.on("mouseout",function(d){
+
+			d3.select(this)
+				.transition().duration(250)
+				.attr('fill', "rgb(185,210,205)")
+
+			d3.select("#tooltip3")
+				.classed("hidden", true)
+		})
+	})
+	
+
+		</script>    	
+
+     </body>
